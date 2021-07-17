@@ -1,0 +1,103 @@
+@font-face {
+	font-family: 'Product Sans Regular';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Product Sans Regular'),
+		url('../fonts/ProductSans-Regular.woff') format('woff');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Product Sans Medium';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Product Sans Medium'),
+		url('../fonts/ProductSans-Medium.woff') format('woff');
+	font-display: swap;
+}
+
+$red: #d90000;
+$white: #ffffff;
+$black: #363636;
+
+.font-medium {
+	font-family: 'Product Sans Medium';
+	font-weight: 500;
+}
+
+.font-regular {
+	font-family: 'Product Sans Regular';
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body,
+html {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	color: $black;
+	letter-spacing: 1px;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	@extend .font-regular;
+	// background-color: lighten($black, 75%);
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: unset;
+	min-height: 44px;
+	min-width: 44px;
+	display: inline-block;
+	padding: 15px 0;
+}
+
+.skip-link {
+	position: absolute;
+	top: -50px;
+	left: 0;
+	background-color: $white;
+	color: $black;
+	padding: 10px;
+	z-index: 100;
+
+	&:focus {
+		top: 110px;
+	}
+}
+
+.container {
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	// Small devices (landscape phones, 576px and up)
+	@media (min-width: 576px) {
+		max-width: 540px;
+	}
+
+	// Medium devices (tablets, 768px and up)
+	@media (min-width: 768px) {
+		max-width: 720px;
+	}
+
+	// Large devices (desktops, 992px and up)
+	@media (min-width: 992px) {
+		max-width: 960px;
+	}
+
+	// Extra large devices (large desktops, 1200px and up)
+	@media (min-width: 1200px) {
+		max-width: 1140px;
+	}
+}
