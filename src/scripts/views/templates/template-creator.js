@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import CONFIG from '../../globals/config';
 
 const createRestaurantItemTemplate = (restaurant) => `
@@ -15,39 +16,33 @@ const createRestaurantItemTemplate = (restaurant) => `
       <p class="card__description">${restaurant.description.substring(0, 40)}...</p>
       <div class="card__footer">
         <div class="card__footer-item">
-          <i
-            class="fa fa-map-marker"
-            aria-label="Location"
-          ></i
-          ><span>${restaurant.city}</span>
+          <i class="material-icons">location_on</i>
+          <span>${restaurant.city}</span>
         </div>
         <div class="card__footer-item">
-          <i class="fa fa-star" aria-label="Rating" ></i
-          ><span>${restaurant.rating}</span>
+           <i class="material-icons">star</i>
+          <span>${restaurant.rating}</span>
         </div>
       </div>
     </div>
-  </article >
+  </article>
   `;
 
-const createRestaurantDetailTemplate = (restaurant) => `
+const createRestaurantDetailTemplate = (restaurant, isMobile) => `
   <div class="detail-header">
-    <div class="header__image">
-      <img
-        class="img-fluid lazyload"
-        data-src="${restaurant.pictureId ? CONFIG.BASE_LARGE_IMAGE_URL + restaurant.pictureId : '/images/image-placeholder.webp'}"
-        alt="${restaurant.name} Images"
-        onerror="this.src='/images/image-placeholder.webp';"
-      />
+    <div class="header__image" style="background-image: url('${isMobile ? restaurant.pictureId ? CONFIG.BASE_SMALL_IMAGE_URL + restaurant.pictureId : '/images/image-placeholder.webp' : restaurant.pictureId ? CONFIG.BASE_MEDIUM_IMAGE_URL + restaurant.pictureId : '/images/image-placeholder.webp'}')">
       <span id="likeButtonContainer" class="header__like"></span>
     </div>
     <div class="header__info">
       <div>
         <h1 class="header__title">${restaurant.name}</h1>
         <p class="header__categories">
+        <i class="material-icons">local_dining</i>
           ${restaurant.categories.map((category) => category.name).join(', ')}
         </p>
-        <p class="header__address">${restaurant.address}, ${restaurant.city}</p>
+        <p class="header__address">
+          <i class="material-icons">location_on</i>
+          ${restaurant.address}, ${restaurant.city}</p>
       </div>
       <div class="header__rating shadow">
         <div class="rating">${restaurant.rating}</div>
@@ -139,25 +134,88 @@ const createCustomerReviews = (reviews) => `
     </div>`).join('')}
 `;
 
+const createRestaurantLoadingTemplate = `
+${(function fun() {
+    let restaurantCard = '';
+    for (let index = 0; index < 8; index += 1) {
+      restaurantCard += '<article class="card__items"><div class="card__header" style="background-color: lightgrey"></div><div class="card__content"><h1 class="card__title loading"></h1><p class="card__description loading"></p><div class="card__footer loading"></div></div></article>';
+    }
+    return restaurantCard;
+  }())}
+`;
+
+const createRestaurantDetailLoadingTemplate = `
+  <div class="detail-header">
+      <div class="header__image" style="background-color: lightgrey">
+      </div>
+      <div class="detail-section">
+        <p class="detail-section__description loading"></p>
+        <p class="detail-section__description loading"></p>
+      </div>
+    <div class="detail-section">
+      <h2 class="detail-section__title">
+        About Restaurant
+      </h2>
+      <p class="detail-section__description loading"></p>
+      <p class="detail-section__description loading"></p>
+      <p class="detail-section__description loading"></p>
+      <p class="detail-section__description loading"></p>
+    </div>
+    <div class="detail-section">
+      <h2 class="detail-section__title">
+        Menu
+      </h2>
+      <div class="detail-section__menu">
+        <div class="sub-menu">
+          <ul>
+            <li class="loading"></li>
+            <li class="loading"></li>
+            <li class="loading"></li>
+            <li class="loading"></li>
+          </ul>
+        </div>
+        <div class="sub-menu">
+          <ul>
+            <li class="loading"></li>
+            <li class="loading"></li>
+            <li class="loading"></li>
+            <li class="loading"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h2 class="detail-section__title">
+        Review(s)
+      </h2>
+      <p class="detail-section__description loading"></p>
+      <p class="detail-section__description loading"></p>
+      <p class="detail-section__description loading"></p>
+      <p class="detail-section__description loading"></p>
+    </div>
+`;
+
 const createErrorTemplate = `
-  <div class="error-container">
-    <img data-src=".images/server-error.svg" class="img-fluid lazyload" alt="Server Error Illustration"/> 
+  <div div class="error-container" >
+    <img data-src="./images/server-error.svg" class="img-fluid lazyload" alt="Server Error Illustration"/> 
     <h1>An error has occured.<br> Please try again later.</h1>
     <a href="#" class="btn btn-primary">Go To Home Page</a>
   </div>
 `;
 
 const createLikeRestaurantButtonTemplate = () => `
-  <button aria-label="like this restaurant" id="likeButton" class="btn like not-active ">
+  <button button aria-label="like this restaurant" id = "likeButton" class="btn like not-active">
+    <i class="material-icons">favorite_border</i>
   </button>
-`;
+  `;
 
 const createLikedButtonTemplate = () => `
-  <button aria-label="unlike this restaurant" id="likeButton" class="btn like active">
+  <button button aria-label="unlike this restaurant" id = "likeButton" class="btn like active">
+    <i class="material-icons">favorite</i>
   </button>
-`;
+  `;
 
 export {
   createRestaurantItemTemplate, createRestaurantDetailTemplate, createCustomerReviews,
-  createLikeRestaurantButtonTemplate, createLikedButtonTemplate, createErrorTemplate,
+  createLikeRestaurantButtonTemplate, createLikedButtonTemplate, createErrorTemplate, createRestaurantLoadingTemplate, createRestaurantDetailLoadingTemplate,
 };

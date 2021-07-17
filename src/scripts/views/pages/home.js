@@ -1,5 +1,5 @@
 import RestaurantSource from '../../data/restaurant-source';
-import { createErrorTemplate, createRestaurantItemTemplate } from '../templates/template-creator';
+import { createErrorTemplate, createRestaurantItemTemplate, createRestaurantLoadingTemplate } from '../templates/template-creator';
 
 const ListRestaurant = {
   async render() {
@@ -17,10 +17,10 @@ const ListRestaurant = {
             autocomplete="off"
             />
             <button id="button-cancel" class="btn btn-cancel" aria-label="Cancel search">
-              <i class="fa fa-times"></i>
+            <i class="material-icons">close</i>
             </button>
             <button id="search-button" class="btn btn-primary" aria-label="Search restaurant">
-              <i class="fa fa-search"></i>
+            <i class="material-icons">search</i>
             </button>
           </form>
           </div>
@@ -34,9 +34,7 @@ const ListRestaurant = {
             <span>List Restaurants</span>
           </h1>
           <div id="restaurants">
-            <div class="loader-container">
-              <div class="loader"></div>
-            </div>
+          <div class="card">${createRestaurantLoadingTemplate}</div>
           </div>
         </div>
       </div>
@@ -45,7 +43,6 @@ const ListRestaurant = {
   },
 
   async afterRender() {
-    // Fungsi ini akan dipanggil setelah render()
     const searchButton = document.querySelector('#search-button');
     const buttonCancel = document.querySelector('#button-cancel');
     const searchForm = document.querySelector('#search-form');
@@ -96,7 +93,7 @@ const ListRestaurant = {
     if (searchRestaurant.hasError) {
       restaurantContainer.innerHTML = createErrorTemplate;
     } else if (searchRestaurant.data.founded === 0) {
-      restaurantContainer.innerHTML = `<div class="search-result">${searchRestaurant.data.founded} Search result for <span>${query}<span></div><div class="error-container><img data-src="./images/no-data.svg" class="img-fluid lazyload" alt="No Restaurant Available Illustration"/><h1>No Restaurant Available</h1></div>`;
+      restaurantContainer.innerHTML = `<div class="search-result">${searchRestaurant.data.founded} Search result for <span>${query}<span></div><div class="error-container"><img data-src="./images/no-data.svg" class="img-fluid lazyload" alt="No Restaurant Available Illustration"/><h1>No Restaurant Available</h1></div>`;
       searchResult.scrollIntoView({ behavior: 'smooth' });
     } else {
       restaurantContainer.innerHTML = `<div class="search-result">${searchRestaurant.data.founded} Search result for <span>${query}<span></div><div class="card">${this._renderRestaurants(searchRestaurant.data.restaurants)}</div>`;

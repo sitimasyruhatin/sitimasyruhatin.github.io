@@ -1,4 +1,12 @@
 node_modules
+/e2e/**
+specs/**
+dist/**
+.firebase
+.firebaserc
+karma.conf.js
+codecept.conf.js
+firebase.json
 # Logs
 logs
 *.log

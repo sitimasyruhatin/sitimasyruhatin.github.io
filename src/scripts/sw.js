@@ -26,7 +26,7 @@ registerRoute(
     plugins: [
       new ExpirationPlugin({
         maxEntries: 500,
-        maxAgeSeconds: 300,
+        maxAgeSeconds: 31536000,
         purgeOnQuotaError: true,
       }),
       new CacheableResponsePlugin({
@@ -37,13 +37,13 @@ registerRoute(
 );
 
 registerRoute(
-  new RegExp(CONFIG.BASE_LARGE_IMAGE_URL),
+  new RegExp(CONFIG.BASE_MEDIUM_IMAGE_URL),
   new CacheFirst({
     cacheName: cacheNames.precache,
     plugins: [
       new ExpirationPlugin({
         maxEntries: 500,
-        maxAgeSeconds: 300,
+        maxAgeSeconds: 31536000,
         purgeOnQuotaError: true,
       }),
       new CacheableResponsePlugin({
@@ -60,7 +60,7 @@ registerRoute(
     plugins: [
       new ExpirationPlugin({
         maxEntries: 500,
-        maxAgeSeconds: 300,
+        maxAgeSeconds: 31536000,
         purgeOnQuotaError: true,
       }),
       new CacheableResponsePlugin({

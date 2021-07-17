@@ -1,5 +1,4 @@
 {
-	"homepage": "http://sitimasyruhatin.github.io/yourtaste",
 	"name": "restaurant-apps",
 	"version": "1.0.0",
 	"description": "",
@@ -10,11 +9,10 @@
 		"test": "karma start",
 		"lint": "eslint ./src",
 		"e2e": "codeceptjs run --steps",
-		"build-image": "node sharp.js",
-		"deploy": "npm run build && gh-pages -d dist"
+		"build-image": "node sharp.js"
 	},
 	"keywords": [],
-	"author": "your_name <your.email@domain.com>",
+	"author": "Siti Masyruhatin <sitimasyruhatin26@gmail.com>",
 	"license": "ISC",
 	"devDependencies": {
 		"@babel/core": "^7.10.5",
@@ -39,8 +37,8 @@
 		"karma-jasmine": "^3.3.1",
 		"karma-sourcemap-loader": "^0.3.7",
 		"karma-webpack": "^4.0.2",
-		"mini-css-extract-plugin": "^2.1.0",
-		"optimize-css-assets-webpack-plugin": "^6.0.1",
+		"mini-css-extract-plugin": "^1.6.2",
+		"postcss-loader": "^4.2.0",
 		"puppeteer": "^10.1.0",
 		"sass": "^1.32.12",
 		"sass-loader": "^10.1.1",

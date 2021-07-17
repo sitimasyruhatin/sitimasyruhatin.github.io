@@ -1,5 +1,5 @@
 import FavoriteRestaurant from '../../data/favorite-restaurant-idb';
-import { createRestaurantItemTemplate, createErrorTemplate } from '../templates/template-creator';
+import { createRestaurantItemTemplate, createErrorTemplate, createRestaurantLoadingTemplate } from '../templates/template-creator';
 
 const Favorite = {
   async render() {
@@ -11,9 +11,8 @@ const Favorite = {
             <span>Your Favorite Restaurants</span>
           </h1>
           <div id="restaurants">
-            <div class="loader-container">
-              <div class="loader"></div>
-            </div>
+          <div class="card">${createRestaurantLoadingTemplate}</div>
+          </div>
           </div>
         </div>
       </div>
@@ -21,7 +20,6 @@ const Favorite = {
     `;
   },
 
-  // Fungsi ini akan dipanggil setelah render()
   async afterRender() {
     const restaurantContainer = document.querySelector('#restaurants');
     const fetchRestaurant = await FavoriteRestaurant.getAllRestaurants();

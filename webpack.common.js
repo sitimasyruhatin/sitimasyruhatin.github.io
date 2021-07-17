@@ -8,6 +8,7 @@ const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
 const ImageminMozjpeg = require('imagemin-mozjpeg');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/scripts/index.js'),
@@ -20,14 +21,15 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: 'style-loader', // creates style nodes from JS strings
-          },
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader', // translates CSS into CommonJS
             options: {
               url: false,
             },
+          },
+          {
+            loader: 'postcss-loader', // compiles Sass to CSS
           },
           {
             loader: 'sass-loader', // compiles Sass to CSS
@@ -63,7 +65,7 @@ module.exports = {
       start_url: '/index.html',
       display: 'standalone',
       background_color: '#ffffff',
-      theme_color: '#d84315',
+      theme_color: '#d90000',
       crossorigin: 'use-credentials',
       fingerprints: false,
       ios: true,
@@ -97,6 +99,10 @@ module.exports = {
       ],
     }),
     new BundleAnalyzerPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].bundle.css',
+      chunkFilename: '[id].css',
+    }),
   ],
   optimization: {
     minimizer: [new UglifyJsPlugin()],

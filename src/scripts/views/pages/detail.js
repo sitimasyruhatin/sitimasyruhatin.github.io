@@ -4,7 +4,7 @@ import {
   createCustomerReviews,
   createErrorTemplate,
   createRestaurantDetailTemplate,
-  createRestaurantItemTemplate,
+  createRestaurantItemTemplate, createRestaurantDetailLoadingTemplate, createRestaurantLoadingTemplate,
 } from '../templates/template-creator';
 import LikeButtonInitiator from '../../utils/like-button-presenter';
 import FavoriteRestaurantIdb from '../../data/favorite-restaurant-idb';
@@ -16,19 +16,15 @@ const Detail = {
       <div class="detail-page">
         <section>
           <div id="detail-restaurant" class="detail-restaurant">
-            <div class="loader-container">
-              <div class="loader"></div>
-            </div>
+          ${createRestaurantDetailLoadingTemplate}
           </div>
         </section>
         <aside>
           <h1 class="section__title" tabindex="0">
             <span>You May Also Like</span>
           </h1>
-          <div id="other-restaurant">
-            <div class="loader-container">
-              <div class="loader"></div>
-            </div>
+          <div id="other-restaurant" class="other-restaurant">
+          ${createRestaurantLoadingTemplate}
           </div>
         </aside>
       </div>
@@ -46,8 +42,14 @@ const Detail = {
       restaurantContainer.innerHTML = createErrorTemplate;
     } else {
       // eslint-disable-next-line max-len
+      let isMobile;
+      if (window.innerWidth < 600) {
+        isMobile = true;
+      } else {
+        isMobile = false;
+      }
       restaurantContainer.innerHTML = await createRestaurantDetailTemplate(
-        fetchRestaurant.data.restaurant,
+        fetchRestaurant.data.restaurant, isMobile,
       );
       this._renderCustomerReviews(fetchRestaurant.data.restaurant.customerReviews);
       const reviewName = document.querySelector('#review-name');
@@ -102,11 +104,11 @@ const Detail = {
 
   _renderRestaurants(restaurants, restaurantId) {
     let restaurantCard = '';
-    let showFive = 0;
+    let showFour = 0;
     restaurants.forEach((restaurant) => {
-      if (restaurant.id !== restaurantId && showFive < 5) {
+      if (restaurant.id !== restaurantId && showFour < 4) {
         restaurantCard += createRestaurantItemTemplate(restaurant);
-        showFive += 1;
+        showFour += 1;
       }
     });
     return restaurantCard;
